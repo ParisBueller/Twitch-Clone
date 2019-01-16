@@ -23,8 +23,11 @@ export const signOut = () => {
 };
 
 //this post request using  restful conventions will create a stream 
-export const createStream = formValues => async dispatch => {
-    const response = await streams.post('/streams', formValues);
+export const createStream = formValues => async (dispatch, getState) => {
+    //we call getState to get our ENTIRE state object and pull off the userId from .auth
+    //so we can associate users with streams they create
+    const { userId } = getState().auth;
+    const response = await streams.post('/streams', { ...formValues, userId });
     //dispatch a create stream action with the payload of the data from the response
     dispatch({ type: CREATE_STREAM, payload: response.data });
 };
