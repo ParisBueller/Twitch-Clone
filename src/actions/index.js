@@ -65,5 +65,6 @@ export const deleteStream = id => async dispatch => {
     //unlike the other action creators being dispatched, our payload
     //will be the id of the stream we are deleting
     dispatch({ type: DELETE_STREAM, payload: id });
+    history.push('/');
 };
 
